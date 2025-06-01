@@ -1,58 +1,82 @@
-# HashCheckGUI
+# HashCheckGUI – Easy Hash & GPG Signature Verifier
 
-**HashCheckGUI** is a free, open source utility for verifying file hashes using a simple graphical interface.  
-It supports SHA1, SHA256, SHA384, and SHA512 – all at once or individually.  
-Ideal for verifying downloads (ISOs, software installers, documents, etc.) to ensure integrity and authenticity.
-
----
+This is an easy-to-use graphical tool for verifying the **integrity** and **authenticity** of Linux ISO downloads – or any file you want to check.  
+It supports SHA1, SHA256, SHA384, SHA512 hash checking and full **GPG signature verification** of SHA256SUMS files from all major Linux distributions.
 
 ## Features
 
-- Simple, intuitive GUI – no command line required
-- Check SHA1, SHA256, SHA384, and SHA512 (all fields optional)
-- Instant visual feedback (green = match, red = mismatch)
-- No data is uploaded or logged – everything runs locally
-- 100% open source – view, modify, or share as you wish
+- **Check file integrity:**  
+  Enter or load SHA1, SHA256, SHA384, or SHA512 hash values and verify any file.
+- **Auto-extract hash:**  
+  Paste a full SHA*SUMS list (e.g., from a Linux distro website), and the program finds the right hash for your selected file.
+- **Hash file support:**  
+  Load any standard hash list or SHA256SUMS.txt and auto-populate the hash field.
+- **GPG signature verification:**  
+  - Select your Linux distribution, and the tool fetches and verifies the official public signing key automatically.
+  - Select or paste both the hash list (SHA256SUMS) and the signature (SHA256SUMS.gpg), and the program verifies authenticity.
+  - You can **copy/paste the .gpg signature directly from your browser** – no need to save as a file first!
+- **Flexible:**  
+  Works for all Linux ISOs and any files you want to check.
+- **Clear result reporting** with color-coded output.
+
+## Why verify downloads?
+
+- Hashes (SHA256, etc.) ensure the file was not corrupted or changed.
+- GPG signature on the hash list guarantees the *authenticity* of the hashes themselves (not just file integrity, but also security).
+
+## Quickstart
+
+1. **Select the file** you want to verify (ISO, etc.).
+2. **Check hash**:
+   - Paste the hash in the correct field (SHA256 etc.), **OR**
+   - Paste the full hash list in the "Paste SHA*SUMS text" box, click "Parse hash from pasted text", and let the tool auto-fill the correct value.
+   - Click "Check hash" for instant feedback.
+3. **Verify signature (for distros that support it):**
+   - Download or copy the full `SHA256SUMS` (or `sha256sum.txt`) and select as "SHA256SUMS file".
+   - Download or copy the GPG signature (`SHA256SUMS.gpg` or `sha256sum.txt.gpg`) – you can paste it as text!
+   - Select your distro (or paste a key ID).
+   - Click "Verify signature".
+
+## Supported distros
+
+- **Full GPG support:** Ubuntu, Linux Mint, Debian, Fedora, Arch, Kali, Manjaro, Tails, Qubes, Zorin, elementary, OpenSUSE (and more).
+- **Hash-only (no GPG):**  
+  Some distributions, such as Pop!_OS, only provide SHA256 hashes and do **not** offer a signed hash list.  
+  In this case, simply use the hash check functionality.
+
+## Example workflow
+
+- **Ubuntu/Mint:** Download both SHA256SUMS and SHA256SUMS.gpg.  
+  Use both to fully verify your ISO (and trust you have the official, unmodified download!).
+- **Pop!_OS:**  
+  Only SHA256 hash is provided.  
+  Paste this into the SHA256 field and check the hash – you get integrity, but not mathematical authenticity.
+
+## Requirements
+
+- Python 3.8+
+- Packages: `python-gnupg`, `tkinter`
+- For signature verification: GnuPG (gpg) must be installed and in your system PATH.
+
+## Security note
+
+**Always use GPG verification if your distribution supports it!**  
+This ensures your ISO is *not just* unmodified, but also that it comes from the official developers.
+
+If your distro only offers SHA256:  
+- Make sure you download hashes over HTTPS, and double-check that you are on the official website.
 
 ---
 
-## Usage
+### License
 
-1. **Run the program:**
-   - If you have Python 3.x installed:  
-     ```sh
-     python hashcheck_gui.py
-     ```
-   - Or, download the `.exe` from [Releases](https://github.com/yourusername/HashCheckGUI/releases) and double-click to start (no installation required).
-
-2. **Select the file** you want to check (e.g., a downloaded ISO or installer) by clicking "Browse..."
-
-3. **Paste the official hash values** (SHA1, SHA256, SHA384, SHA512) in the relevant fields.
-   - You can fill one or several fields – only filled fields are checked.
-
-4. **Click "Check hash".**
-   - A popup window will show you which hashes match (green) or do not match (red).
+MIT License  
+Created by [your username]
 
 ---
 
-## Building your own .exe
+### Feedback and contributions welcome!
 
-If you want to build the Windows executable yourself (recommended for full transparency):
+Open an issue or PR if you have ideas or find bugs.  
+This tool is for everyone who wants easy, secure, *offline* ISO verification!
 
-```sh
-python -m pip install pyinstaller
-python -m pyinstaller hashcheck_gui.py --onefile --noconsole
-
-The resulting .exe will be found in the dist folder.
-License
-
-MIT License — use, modify, or redistribute freely.
-Contributing
-
-Pull requests, suggestions, and bug reports are welcome!
-Feel free to fork this repository, open issues, or submit improvements.
-Disclaimer
-
-This tool is provided as-is, with no warranty. Always double-check hashes for critical security or production files.
-
-Created by: Aftermath6082
