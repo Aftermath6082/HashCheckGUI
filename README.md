@@ -42,3 +42,17 @@ If you want to build the Windows executable yourself (recommended for full trans
 ```sh
 python -m pip install pyinstaller
 python -m pyinstaller hashcheck_gui.py --onefile --noconsole
+
+The resulting .exe will be found in the dist folder.
+License
+
+MIT License — use, modify, or redistribute freely.
+Contributing
+
+Pull requests, suggestions, and bug reports are welcome!
+Feel free to fork this repository, open issues, or submit improvements.
+Disclaimer
+
+This tool is provided as-is, with no warranty. Always double-check hashes for critical security or production files.
+
+Created by: Aftermath6082
